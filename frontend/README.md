@@ -1,7 +1,7 @@
 
 
 # Frontend
-Frontend - interfaz con React
+Frontend - interfaz con React,
 Aplicación frontend desarrollada en React que sirve como interfaz de usuario para interactuar con los microservicios de la plataforma.  
 Permite a los usuarios autenticarse, gestionar autos, leer publicaciones del blog y recibir notificaciones.
 
@@ -41,4 +41,5 @@ La aplicación consume los siguientes servicios:
 - Auto Service: `/autos/*`
 - Blog Service: `/posts/*`, `/authors/*`
 - Email Service: `/emails/*`
+
 
