@@ -1,42 +1,119 @@
-# Laboratorio de Microservicios (Django + React)
+# 🧩 Laboratorio de Microservicios (Django + React)
 
-## 🏗️ Arquitectura inicial
+## 🎯 Día 1 — Fundamentos + Entorno Docker / Git
 
-**Servicios principales:**
-- `auth-service/` → Autenticación y tokens JWT  
-- `blog-service/` → Publicaciones, autores y categorías  
-- `email-service/` → Notificaciones y formularios  
-- `frontend/` → Interfaz React  
-- `reverse-proxy/` → Balanceo / Gateway local  
+### 👥 Objetivo general
+Comprender qué es una arquitectura de microservicios y preparar el entorno de trabajo para los siguientes días.  
+El grupo debe terminar el día con una base funcional en Docker Compose, donde cada servicio puede ser levantado de forma independiente.
 
-**Servicios base (Docker):**
-- PostgreSQL → puerto **5432**
-- Redis → puerto **6379**
+---
 
-## ⚙️ Archivos importantes
-- `docker-compose.yml` → Define los servicios base (PostgreSQL y Redis)
-- `.env.example` → Variables de entorno de ejemplo (base de datos y cache)
-- `.env` → Variables locales (no se sube al repo)
+## 🧠 Conceptos aprendidos
+- Diferencia entre monolito y microservicios
+- Principios básicos: autonomía, responsabilidad única, acoplamiento flexible, escalabilidad y observabilidad
+- Estructura de proyecto “multi-servicio”
+- Uso de Docker + Docker Compose para levantar contenedores
+- Control de versiones en Git (ramas main y staging)
 
-## 🚀 Cómo iniciar el entorno
-1. Clonar el repositorio:
-   ```bash
-   git clone https://github.com/Thory-Vera/microservices-lab.git
-   cd microservices-lab
-# Laboratorio de Microservicios (Django + React)
+---
 
-## Arquitectura inicial
-- auth-service/      → Autenticación y tokens JWT
-- blog-service/      → Publicaciones, autores y categorías
-- email-service/     → Notificaciones y formularios
-- frontend/          → Interfaz React
-- reverse-proxy/     → Balanceo / Gateway local
+## ⚙️ Arquitectura inicial del proyecto
+microservices-lab/
+│
+├── auth-service/        → Servicio de autenticación y tokens JWT
+├── blog-service/        → Servicio de publicaciones, autores y categorías
+├── email-service/       → Servicio de notificaciones y formularios
+├── frontend/            → Interfaz React
+├── reverse-proxy/       → Balanceador o gateway local
+│
+├── docker-compose.yml   → Configuración de Docker (PostgreSQL + Redis)
+├── .env.example         → Variables de entorno del proyecto
+└── README.md            → Documentación general
 
-Servicios base:
-- PostgreSQL (5432)
-- Redis (6379)
+---
 
-## Cómo levantar (rápido)
-1. Copiar variables de entorno:
-   ```powershell
-   copy .env.example .env
+## 🐳 Servicios base (Docker)
+- PostgreSQL → Puerto 5432
+- Redis → Puerto 6379
+
+Archivo docker-compose.yml:
+
+version: "3.9"
+services:
+  postgres:
+    image: postgres:15
+    container_name: db_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpass
+      POSTGRES_DB: main_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    container_name: cache_redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  pgdata:
+
+---
+
+## 🌍 Variables de entorno
+Archivo .env.example:
+
+POSTGRES_USER=devuser
+POSTGRES_PASSWORD=devpass
+POSTGRES_DB=main_db
+REDIS_HOST=redis
+REDIS_PORT=6379
+
+Cada integrante debe copiarlo y renombrarlo a .env localmente.
+
+---
+
+## 🧪 Mini-reto de cierre del día
+- Levantar los contenedores con:
+  docker compose up -d
+  docker ps
+- Crear test_connection.py (ya implementado en auth-service/) para probar conexión a PostgreSQL y Redis.
+
+---
+
+## ✅ Checklist del Día 1
+Entregable | Descripción | Estado
+----------- | ------------ | --------
+🗂️ Repo Git | Subido a GitHub con estructura base y .env.example | ✅
+🐳 Docker Compose | Levanta PostgreSQL y Redis sin errores | ✅
+📘 README documentado | Incluye arquitectura y checklist | ✅
+📸 Captura o video corto | Mostrando docker ps en ejecución | ✅
+
+---
+
+## 🚀 Ejecución
+Para levantar todo el entorno:
+docker compose up -d
+
+Para detenerlo:
+docker compose down
+
+Para probar conexión desde el servicio de autenticación:
+cd auth-service
+python test_connection.py
+
+---
+
+## 📦 Resultado final
+Entorno base de microservicios funcional con PostgreSQL y Redis listo para ampliarse con los servicios Django y React en los siguientes días.
+
+---
+
+✍️ Autor: Thory Milagros Vera Flores
+📅 Día 1 — Laboratorio de Microservicios
+
