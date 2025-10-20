@@ -1,4 +1,4 @@
-==========================
+
 Auth Service
 ==========================
 
@@ -42,7 +42,7 @@ POST   | /auth/register | Crear un nuevo usuario
 POST   | /auth/login    | Iniciar sesión
 GET    | /auth/verify   | Verificar token JWT
 
-==========================
+
 Auto Service
 ==========================
 
@@ -85,5 +85,6 @@ POST   | /autos/        | Crear un nuevo auto
 GET    | /autos/{id}/   | Obtener detalles de un auto
 PUT    | /autos/{id}/   | Actualizar un auto
 DELETE | /autos/{id}/   | Eliminar un auto
+
 
 
